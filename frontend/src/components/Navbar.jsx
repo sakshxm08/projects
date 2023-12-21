@@ -20,7 +20,7 @@ export const Navbar = () => {
         </div>
       </div>
       <h1 className="text-6xl font-extrabold">Projects</h1>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-8 items-center">
         <Link
           to="/auth"
           className="border p-2 text-sm cursor-pointer hover:bg-white/20 transition-all rounded"

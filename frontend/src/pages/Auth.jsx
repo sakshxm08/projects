@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { saksham } from "../assets";
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
 import { useRef } from "react";
 import { IoEyeOffOutline, IoEye } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 export const Auth = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,16 +22,44 @@ export const Auth = () => {
     else pass_input.current.type = "password";
   };
 
+  const login = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      import.meta.env.VITE_APP_BASE_URL + "/user/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      }
+    );
+    const json = await response.json();
+    if (!response.ok) {
+      return toast.error(json.error);
+    }
+    if (response.ok) {
+      localStorage.setItem("user", JSON.stringify(json));
+      toast.success(
+        <div>
+          Welcome <span className="font-bold">{json.username}</span>
+        </div>
+      );
+      setUsername("");
+      setPassword("");
+      setPassHidden(true);
+      navigate("/dashboard");
+    }
+  };
   return (
     <>
-      <Link
-        to="/"
-        className="absolute top-20 left-20 flex items-center justify-center gap-1 hover:text-yellow-500"
-      >
-        <IoIosArrowBack /> Back
-      </Link>
-      <div className="flex min-h-full items-center flex-1 flex-col justify-center px-6 py-28 lg:px-8">
-        <div className="sm:mx-auto sm:w-full mt-6 sm:max-w-sm flex flex-col items-center justify-center gap-4">
+      <div className="mt-20 max-w-md w-5/6 mx-auto backdrop-blur-3xl bg-white/10 shadow rounded-xl  pt-12 pb-20">
+        <Link
+          to="/"
+          className="text-sm flex items-center gap-1 mb-8 ml-12 hover:text-gray-800 hover:bg-gray-100 py-1 px-2 w-fit rounded-full transition-all"
+        >
+          <IoIosArrowBack /> Back
+        </Link>
+
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center justify-center gap-4">
           <img
             className="mx-auto h-20 w-auto"
             src={saksham}
@@ -42,7 +73,7 @@ export const Auth = () => {
         </div>
 
         <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={login}>
             <div>
               <label
                 htmlFor="username"
@@ -50,7 +81,7 @@ export const Auth = () => {
               >
                 Username
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
                   id="username"
                   name="username"
@@ -59,7 +90,7 @@ export const Auth = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 bg-black/20 focus:bg-black/40 shadow-sm ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-100 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 bg-black/20 focus:bg-black/40 shadow-sm ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-slate-100 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -73,7 +104,7 @@ export const Auth = () => {
                   Password
                 </label>
               </div>
-              <div className="mt-2 relative">
+              <div className="mt-1 relative">
                 <input
                   ref={pass_input}
                   id="password"
@@ -83,7 +114,7 @@ export const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="block w-full rounded-md border-0 py-1.5  shadow-sm bg-black/20 focus:bg-black/40 ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-100 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5  shadow-sm bg-black/20 focus:bg-black/40 ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-slate-100 sm:text-sm sm:leading-6"
                 />
                 <span
                   className="absolute right-2 top-[6px] cursor-pointer hover:bg-white hover:text-black rounded-full p-1 transition-all"
@@ -101,7 +132,7 @@ export const Auth = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md border-2 border-white/40 hover:border-yellow-500 hover:text-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-500 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+                className="flex w-full justify-center rounded-md border-2 border-white/60  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-200/20 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300"
               >
                 Login
               </button>

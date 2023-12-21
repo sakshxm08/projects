@@ -11,7 +11,7 @@ export const Projects = () => {
     { name: "Spotify", img: logo },
   ];
   return (
-    <div className="py-20 max-w-screen-2xl w-11/12 mx-auto grid grid-cols-4 gap-10">
+    <div className="py-20 max-w-screen-2xl w-5/6 mx-auto grid grid-cols-4 gap-x-20 gap-y-10">
       {projects.map((project, index) => (
         <Project key={index} project={project} />
       ))}
