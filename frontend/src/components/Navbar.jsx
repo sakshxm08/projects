@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import { logo, saksham } from "../assets";
 
 export const Navbar = () => {
   return (
-    <div className="flex items-center justify-center  w-screen py-6 px-10 relative">
-      <div className="flex items-center gap-4 absolute left-10 top-6 group select-none">
+    <div className="flex items-center justify-between  w-screen py-6 px-10 relative">
+      <div className="flex items-center gap-4 group select-none">
         <img
           src={logo}
           alt="logo"
@@ -18,10 +19,18 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-      <h1 className="text-6xl font-extrabold ">Projects</h1>
-      <button className="h-fitflex items-center justify-center absolute right-10 top-5 hover:border-emerald-300/30 active:border-emerald-600/30 transition-all border-transparent border-8 rounded-full aspect-square ">
-        <img src={saksham} alt="user" className=" h-14" />
-      </button>
+      <h1 className="text-6xl font-extrabold">Projects</h1>
+      <div className="flex gap-4 items-center">
+        <Link
+          to="/auth"
+          className="border p-2 text-sm cursor-pointer hover:bg-white/20 transition-all rounded"
+        >
+          Add Project
+        </Link>
+        <button className="h-fit flex items-center justify-center hover:border-emerald-300/30 active:border-emerald-600/30 transition-all border-transparent border-8 rounded-full aspect-square ">
+          <img src={saksham} alt="user" className=" h-14" />
+        </button>
+      </div>
     </div>
   );
 };
