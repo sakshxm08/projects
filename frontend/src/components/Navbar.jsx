@@ -13,7 +13,7 @@ export const Navbar = () => {
           <div className="text-2xl font-extrabold group-hover:text-emerald-300 transition-all group-active:text-emerald-500">
             sakshxm08
           </div>
-          <div className="text-sm tracking-wider text-center w-full text-emerald-300 group-active:tracking-wider group-active:text-emerald-500 group-hover:tracking-widest transition-all">
+          <div className="text-sm tracking-wider text-center w-full text-red-300 group-active:tracking-wider group-active:text-emerald-500 group-hover:tracking-widest transition-all">
             Saksham Gambhir
           </div>
         </div>
