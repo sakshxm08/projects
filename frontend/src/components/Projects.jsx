@@ -11,10 +11,13 @@ export const Projects = () => {
     { name: "Spotify", img: logo },
   ];
   return (
-    <div className="py-20 max-w-screen-2xl w-5/6 mx-auto grid grid-cols-4 gap-x-20 gap-y-10">
-      {projects.map((project, index) => (
-        <Project key={index} project={project} />
-      ))}
+    <div className="py-10  ml-32 flex gap-40 items-center">
+      <div className="w-1/4 flex flex-col gap-4">
+        {projects.map((project, index) => (
+          <Project key={index} project={project} />
+        ))}
+      </div>
+      <div className="w-3/4 bg-black/20 backdrop-blur-3xl rounded-tl-3xl rounded-bl-3xl h-[480px] overflow-hidden"></div>
     </div>
   );
 };
