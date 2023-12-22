@@ -20,10 +20,13 @@ export const Dashboard = () => {
         </div>
       </div>
       <div className="flex items-center justify-center flex-col gap-4 mt-20">
-        <div className="border border-gray-100 rounded hover:bg-gray-100 hover:text-gray-800 cursor-pointer transition-all py-2 w-80 flex items-center justify-center gap-2">
+        <Link
+          to="/add"
+          className="border border-gray-100 rounded hover:bg-gray-100 hover:text-gray-800 cursor-pointer transition-all py-2 w-80 flex items-center justify-center gap-2"
+        >
           <IoAdd />
           Add a new project
-        </div>
+        </Link>
         <span className="font-bold">or</span>
         <div className="border border-gray-100 rounded hover:bg-gray-100 hover:text-gray-800 cursor-pointer transition-all py-2 w-80 flex items-center justify-center gap-2">
           <FiEdit3 />
