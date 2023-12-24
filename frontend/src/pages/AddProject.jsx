@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Page1 } from "../components/AddProject/Page1";
+import { Page2 } from "../components/AddProject/Page2";
+import { Page3 } from "../components/AddProject/Page3";
 export const AddProject = () => {
   const [page, setPage] = useState(1);
 
@@ -25,7 +27,13 @@ export const AddProject = () => {
             </>
           ))}
         </div>
-        {page === 1 ? <Page1 /> : null}
+        {page === 1 ? (
+          <Page1 />
+        ) : page === 2 ? (
+          <Page2 />
+        ) : page === 3 ? (
+          <Page3 />
+        ) : null}
         <div className="flex justify-end items-center gap-4 mt-10 h-16">
           {page > 1 && (
             <button

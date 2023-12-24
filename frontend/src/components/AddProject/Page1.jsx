@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaImage } from "react-icons/fa";
+import { IoImageOutline } from "react-icons/io5";
 import { IoCloudUploadOutline } from "react-icons/io5";
 export const Page1 = () => {
   const [img, setImg] = useState(null);
@@ -19,7 +19,7 @@ export const Page1 = () => {
     }
   };
   return (
-    <div className="flex flex-col justify-center gap-8">
+    <div className="flex flex-col justify-center gap-4">
       <div className="flex flex-col gap-2">
         <h2 className="font-extrabold text-3xl text-gray-100 ">
           Basic Information
@@ -28,8 +28,8 @@ export const Page1 = () => {
           Provide basic details about your website project.
         </p>
       </div>
-      <div className="flex flex-col gap-2">
-        <span className="text-sm font-medium">
+      <div className="flex flex-col gap-2 mt-2">
+        <span className="w-fit text-sm font-medium leading-6">
           Introduce your project&apos;s logo
         </span>
         <div className="flex gap-4 items-center">
@@ -37,7 +37,7 @@ export const Page1 = () => {
             {img ? (
               <img src={img} alt="" className="w-28 object-cover" />
             ) : (
-              <FaImage size={28} className="text-slate-300" />
+              <IoImageOutline size={28} className="text-slate-300" />
             )}
           </div>
 
