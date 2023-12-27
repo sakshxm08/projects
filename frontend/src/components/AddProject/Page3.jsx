@@ -58,7 +58,7 @@ export const Page3 = () => {
                 </span>
                 <span
                   id="hs-checkbox-delete-description"
-                  className="block text-xs text-gray-300"
+                  className="block text-xs text-gray-200"
                 >
                   {feature.desc}
                 </span>
