@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Dropdown } from "./Dropdown";
 import { IoIosClose } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
+import { ProjectFormContext } from "../../context/ProjectFormContext";
 
 export const Page2 = () => {
   const languages = [
@@ -109,7 +110,9 @@ export const Page2 = () => {
     },
   ];
 
-  const [keywords, setKeywords] = useState([]);
+  const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
+
+  const [keywords, setKeywords] = useState(projectDetails.other_lang);
   const [keyword, setKeyword] = useState("");
   return (
     <div className="flex flex-col justify-center gap-4">
@@ -122,10 +125,20 @@ export const Page2 = () => {
         </p>
       </div>
       <div className="mt-2">
-        <Dropdown options={languages} label={"Programming language used"} />
+        <Dropdown
+          options={languages}
+          initial={projectDetails.language || languages[0]}
+          label={"Programming language used"}
+          name={"language"}
+        />
       </div>
       <div>
-        <Dropdown options={frameworks} label={"Frameworks or Libraries used"} />
+        <Dropdown
+          options={frameworks}
+          initial={projectDetails.library || frameworks[0]}
+          label={"Frameworks or Libraries used"}
+          name={"library"}
+        />
       </div>
       <div>
         <label htmlFor="name" className="w-fit text-sm font-medium leading-6">
@@ -151,6 +164,7 @@ export const Page2 = () => {
               )
                 return alert("Enter unique keywords");
               keywords.push(keyword);
+              setProjectDetails({ ...projectDetails, other_lang: keywords });
               setKeyword("");
             }}
             className="text-xs rounded-full border  p-1 transition-all absolute right-2 top-2 hover:bg-white hover:text-gray-800"
@@ -172,6 +186,10 @@ export const Page2 = () => {
                     setKeywords(() =>
                       keywords.filter((key) => key !== keyword)
                     );
+                    setProjectDetails({
+                      ...projectDetails,
+                      other_lang: keywords.filter((key) => key !== keyword),
+                    });
                   }}
                 />
               </span>

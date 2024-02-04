@@ -1,15 +1,19 @@
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ProjectFormContext } from "../../context/ProjectFormContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Dropdown = ({ options, label }) => {
-  const [selected, setSelected] = useState(options[0]);
-
+export const Dropdown = ({ initial, options, label, name }) => {
+  const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
+  const [selected, setSelected] = useState(initial);
+  useEffect(() => {
+    setProjectDetails({ ...projectDetails, [name]: selected });
+  });
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
@@ -42,7 +46,7 @@ export const Dropdown = ({ options, label }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/90 backdrop-blur-3xl py-1 text-base shadow-lg ring-0 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-gray-200/90 py-1 text-base shadow-lg ring-0 focus:outline-none sm:text-sm">
                 {options.map((person) => (
                   <Listbox.Option
                     key={person.id}
@@ -97,5 +101,6 @@ export const Dropdown = ({ options, label }) => {
 Dropdown.propTypes = {
   options: PropTypes.array,
   label: PropTypes.string,
-  width: PropTypes.string,
+  initial: PropTypes.string,
+  name: PropTypes.string,
 };

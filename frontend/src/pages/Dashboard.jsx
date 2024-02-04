@@ -21,7 +21,7 @@ export const Dashboard = () => {
       </div>
       <div className="flex items-center justify-center flex-col gap-4 mt-20">
         <Link
-          to="/add"
+          to="/add?page=1"
           className="border border-gray-100 rounded hover:bg-gray-100 hover:text-gray-800 cursor-pointer transition-all py-2 w-80 flex items-center justify-center gap-2"
         >
           <IoAdd />

@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AddProject } from "./pages/AddProject";
+import { ProjectFormProvider } from "./context/ProjectFormContext";
 
 const Layout = () => {
   return <Outlet />;
@@ -24,8 +25,10 @@ function App() {
   ]);
   return (
     <>
-      <RouterProvider router={router} />
-      <Toaster />
+      <ProjectFormProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </ProjectFormProvider>
     </>
   );
 }

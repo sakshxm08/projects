@@ -1,34 +1,72 @@
+// import { useContext, useState } from "react";
+// import { ProjectFormContext } from "../../context/ProjectFormContext";
+
 export const Page3 = () => {
   const features = [
     {
       title: "Contact Form Integration",
       desc: "Allow users to easily reach out to you through a contact form.",
+      value: "contact_form",
     },
     {
       title: "Newsletter Signup",
       desc: "Enable users to subscribe to your newsletter for updates and announcements.",
+      value: "newsletter",
     },
     {
       title: "Social Media Integration",
       desc: "Connect your website to social media platforms for increased engagement.",
+      value: "social_media",
     },
     {
       title: "Search Feature",
       desc: "Incorporate a search bar for users to easily find specific content on your website.",
+      value: "search_feature",
     },
     {
       title: "User Login",
       desc: "Implement user authentication for personalized experiences and restricted content.",
+      value: "user_login",
     },
     {
       title: "Frequently Asked Questions (FAQs)",
       desc: "Include a section addressing common queries to enhance user experience.",
+      value: "faqs",
     },
     {
       title: "Blog or News Updates",
       desc: "Allow users to easily reach out to you through a contact form",
+      value: "blogs",
     },
   ];
+  // const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
+  // const [checkedState, setCheckedState] = useState(
+  //   new Array(features.length).fill(false)
+  // );
+
+  // const [checkedFeatures, setCheckedFeatures] = useState(
+  //   projectDetails.features
+  // );
+
+  // const handleOnChange = (position) => {
+  //   const updatedCheckedState = checkedState.map((item, index) =>
+  //     index === position ? !item : item
+  //   );
+  //   setCheckedState(updatedCheckedState);
+
+  //   const updatedCheckedFeatures = updatedCheckedState.reduce(
+  //     (sum, currentState, index) => {
+  //       if (currentState === true) {
+  //         setCheckedFeatures([...checkedFeatures, features[index]]);
+  //         console.log(features[index]);
+  //       }
+  //     },
+  //     0
+  //   );
+  //   setCheckedFeatures(updatedCheckedFeatures);
+  //   setProjectDetails({ ...projectDetails, features: updatedCheckedFeatures });
+  // };
+
   return (
     <div className="flex flex-col justify-center gap-4">
       <div className="flex flex-col gap-2">
@@ -36,7 +74,7 @@ export const Page3 = () => {
           Additional Features
         </h2>
         <p className="text-gray-200 text-sm">
-          Choose additional features for your website.
+          Choose additional features for your project
         </p>
       </div>
       <div>
@@ -45,19 +83,22 @@ export const Page3 = () => {
             <div key={index} className="relative flex items-start">
               <div className="flex items-center h-5 mt-1">
                 <input
-                  id="hs-checkbox-delete"
-                  name="hs-checkbox-delete"
+                  id={feature.value}
+                  value={feature.value}
+                  name="features"
                   type="checkbox"
+                  // checked={checkedState[index]}
+                  // onChange={() => handleOnChange(index)}
                   className="border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                  aria-describedby="hs-checkbox-delete-description"
+                  aria-describedby={feature.value + "_description"}
                 />
               </div>
-              <label htmlFor="hs-checkbox-delete" className="ms-3">
+              <label htmlFor={feature.value} className="ms-3">
                 <span className="block text-sm font-semibold text-gray-200">
                   {feature.title}
                 </span>
                 <span
-                  id="hs-checkbox-delete-description"
+                  id={feature.value + "_description"}
                   className="block text-xs text-gray-300"
                 >
                   {feature.desc}

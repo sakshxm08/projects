@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { ProjectFormContext } from "../../context/ProjectFormContext";
 export const Page1 = () => {
-  const [img, setImg] = useState(null);
+  const { projectDetails, setProjectDetails, setValues } =
+    useContext(ProjectFormContext);
+  const [img, setImg] = useState(projectDetails.logo);
+
   const convertToBase64 = (e) => {
     const reader = new FileReader();
     const img = e.target.files[0];
@@ -14,10 +18,12 @@ export const Page1 = () => {
         return alert("Please upload an image of size < 2MB");
       reader.readAsDataURL(img);
       reader.onload = () => {
+        setProjectDetails({ ...projectDetails, logo: reader.result });
         setImg(reader.result);
       };
     }
   };
+
   return (
     <div className="flex flex-col justify-center gap-4">
       <div className="flex flex-col gap-2">
@@ -45,7 +51,7 @@ export const Page1 = () => {
             {!img ? (
               <label
                 htmlFor="imgUpload"
-                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border backdrop-blu transition-all"
+                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
               >
                 <IoCloudUploadOutline size={16} />
                 Upload image
@@ -54,7 +60,7 @@ export const Page1 = () => {
               <label
                 htmlFor="imgUpload"
                 //   onClick={() => setImg("")}
-                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border backdrop-blu transition-all"
+                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
               >
                 <IoCloudUploadOutline size={16} />
                 Upload another image
@@ -81,6 +87,8 @@ export const Page1 = () => {
             name="name"
             type="text"
             autoComplete="text"
+            value={projectDetails.name}
+            onChange={setValues}
             required
             className="block w-full rounded-md border-0 py-1.5 bg-black/20 focus:bg-black/40 shadow-sm ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-slate-100 sm:text-sm sm:leading-6"
           />
@@ -97,6 +105,8 @@ export const Page1 = () => {
           <textarea
             id="description"
             name="description"
+            value={projectDetails.description}
+            onChange={setValues}
             rows={3}
             required
             className="block w-full rounded-md border-0 py-1.5 bg-black/20 focus:bg-black/40 shadow-sm ring-0 placeholder:text-gray-400 focus:ring-1 focus:ring-slate-100 sm:text-sm sm:leading-6"
