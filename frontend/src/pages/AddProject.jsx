@@ -5,10 +5,14 @@ import { Page1 } from "../components/AddProject/Page1";
 import { Page2 } from "../components/AddProject/Page2";
 import { Page3 } from "../components/AddProject/Page3";
 import { Link, useSearchParams } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 export const AddProject = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  useEffect(() => {
+    if (!searchParams.get("page") || parseInt(searchParams.get("page")) > 4)
+      setSearchParams({ page: 1 });
+  });
   return (
     <div className="py-10">
       <div className=" max-w-xl w-5/6 mx-auto backdrop-blur-3xl bg-white/10 shadow rounded-xl  py-10 px-20">
