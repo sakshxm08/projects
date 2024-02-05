@@ -7,12 +7,7 @@ import { Page3 } from "../components/AddProject/Page3";
 import { Link, useSearchParams } from "react-router-dom";
 import { Fragment } from "react";
 export const AddProject = () => {
-  // const [page, setPage] = useState(1);
-
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("page"));
-
-  //   {JSON.parse(localStorage.getItem("user")).username}
 
   return (
     <div className="py-10">
@@ -21,11 +16,10 @@ export const AddProject = () => {
           {Array.from({ length: 4 }).map((x, index) => (
             <Fragment key={index}>
               <span
-                onClick={() => setSearchParams({ page: index + 1 })}
-                className={`py-1 px-3 aspect-square rounded-full border transition-all cursor-pointer   ${
+                className={`py-1 px-3 aspect-square rounded-full border transition-all select-none ${
                   parseInt(searchParams.get("page")) === index + 1
                     ? "bg-gray-200 text-black"
-                    : " text-white hover:bg-white/30"
+                    : " text-white"
                 }`}
                 key={index}
               >

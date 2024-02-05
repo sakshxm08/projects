@@ -12,8 +12,9 @@ export const Dropdown = ({ initial, options, label, name }) => {
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
   const [selected, setSelected] = useState(initial);
   useEffect(() => {
-    setProjectDetails({ ...projectDetails, [name]: selected });
-  });
+    setProjectDetails({ ...projectDetails, [name]: selected.name });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, selected]);
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
@@ -101,6 +102,6 @@ export const Dropdown = ({ initial, options, label, name }) => {
 Dropdown.propTypes = {
   options: PropTypes.array,
   label: PropTypes.string,
-  initial: PropTypes.string,
+  initial: PropTypes.object,
   name: PropTypes.string,
 };

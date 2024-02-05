@@ -1,5 +1,5 @@
-// import { useContext, useState } from "react";
-// import { ProjectFormContext } from "../../context/ProjectFormContext";
+import { useContext } from "react";
+import { ProjectFormContext } from "../../context/ProjectFormContext";
 
 export const Page3 = () => {
   const features = [
@@ -39,33 +39,20 @@ export const Page3 = () => {
       value: "blogs",
     },
   ];
-  // const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
-  // const [checkedState, setCheckedState] = useState(
-  //   new Array(features.length).fill(false)
-  // );
+  const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
 
-  // const [checkedFeatures, setCheckedFeatures] = useState(
-  //   projectDetails.features
-  // );
+  const handleToggle = (c) => {
+    // return the first index or -1
+    const clickedCategory = projectDetails.features.indexOf(c);
+    const all = [...projectDetails.features];
 
-  // const handleOnChange = (position) => {
-  //   const updatedCheckedState = checkedState.map((item, index) =>
-  //     index === position ? !item : item
-  //   );
-  //   setCheckedState(updatedCheckedState);
-
-  //   const updatedCheckedFeatures = updatedCheckedState.reduce(
-  //     (sum, currentState, index) => {
-  //       if (currentState === true) {
-  //         setCheckedFeatures([...checkedFeatures, features[index]]);
-  //         console.log(features[index]);
-  //       }
-  //     },
-  //     0
-  //   );
-  //   setCheckedFeatures(updatedCheckedFeatures);
-  //   setProjectDetails({ ...projectDetails, features: updatedCheckedFeatures });
-  // };
+    if (clickedCategory === -1) {
+      all.push(c);
+    } else {
+      all.splice(clickedCategory, 1);
+    }
+    setProjectDetails({ ...projectDetails, features: all });
+  };
 
   return (
     <div className="flex flex-col justify-center gap-4">
@@ -87,8 +74,12 @@ export const Page3 = () => {
                   value={feature.value}
                   name="features"
                   type="checkbox"
-                  // checked={checkedState[index]}
-                  // onChange={() => handleOnChange(index)}
+                  checked={
+                    projectDetails.features.findIndex(
+                      (checkedFeature) => checkedFeature === feature.value
+                    ) !== -1
+                  }
+                  onChange={() => handleToggle(feature.value)}
                   className="border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                   aria-describedby={feature.value + "_description"}
                 />

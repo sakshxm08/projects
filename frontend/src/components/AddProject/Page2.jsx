@@ -57,7 +57,7 @@ export const Page2 = () => {
       avatar: "https://asset.brandfetch.io/id8oU9wOdk/idritPOXtM.png",
     },
   ];
-  const frameworks = [
+  const libraries = [
     {
       id: 1,
       name: "React.js",
@@ -127,15 +127,27 @@ export const Page2 = () => {
       <div className="mt-2">
         <Dropdown
           options={languages}
-          initial={projectDetails.language || languages[0]}
+          initial={
+            projectDetails.language === ""
+              ? languages[0]
+              : languages.filter(
+                  (lang) => lang.name === projectDetails.language
+                )[0]
+          }
           label={"Programming language used"}
           name={"language"}
         />
       </div>
       <div>
         <Dropdown
-          options={frameworks}
-          initial={projectDetails.library || frameworks[0]}
+          options={libraries}
+          initial={
+            projectDetails.library === ""
+              ? libraries[0]
+              : libraries.filter(
+                  (lib) => lib.name === projectDetails.library
+                )[0]
+          }
           label={"Frameworks or Libraries used"}
           name={"library"}
         />
