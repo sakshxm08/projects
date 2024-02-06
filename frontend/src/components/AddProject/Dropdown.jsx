@@ -12,7 +12,10 @@ export const Dropdown = ({ initial, options, label, name }) => {
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
   const [selected, setSelected] = useState(initial);
   useEffect(() => {
-    setProjectDetails({ ...projectDetails, [name]: selected.name });
+    setProjectDetails({
+      ...projectDetails,
+      [name]: options.find((option) => option.name === selected.name),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, selected]);
   return (
@@ -23,7 +26,7 @@ export const Dropdown = ({ initial, options, label, name }) => {
             {label}
           </Listbox.Label>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-md bg-black/20 py-1.5 pl-3 pr-10 text-left text-gray-200 shadow-sm ring-0 focus:outline-none sm:text-sm sm:leading-6">
+            <Listbox.Button className="relative w-full cursor-pointer rounded-md bg-black/20 hover:bg-black/30 transition-all py-1.5 pl-3 pr-10 text-left text-gray-200 shadow-sm ring-0 focus:outline-none sm:text-sm sm:leading-6">
               <span className={`flex items-center`}>
                 <img
                   src={selected.avatar}

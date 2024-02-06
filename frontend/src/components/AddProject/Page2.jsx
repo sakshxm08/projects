@@ -128,11 +128,7 @@ export const Page2 = () => {
         <Dropdown
           options={languages}
           initial={
-            projectDetails.language === ""
-              ? languages[0]
-              : languages.filter(
-                  (lang) => lang.name === projectDetails.language
-                )[0]
+            projectDetails.language.id ? projectDetails.language : languages[0]
           }
           label={"Programming language used"}
           name={"language"}
@@ -142,11 +138,7 @@ export const Page2 = () => {
         <Dropdown
           options={libraries}
           initial={
-            projectDetails.library === ""
-              ? libraries[0]
-              : libraries.filter(
-                  (lib) => lib.name === projectDetails.library
-                )[0]
+            projectDetails.library.id ? projectDetails.library : libraries[0]
           }
           label={"Frameworks or Libraries used"}
           name={"library"}
@@ -154,7 +146,7 @@ export const Page2 = () => {
       </div>
       <div>
         <label htmlFor="name" className="w-fit text-sm font-medium leading-6">
-          Other programming languages used
+          Other technologies used
         </label>
         <div className="mt-1 relative">
           <input

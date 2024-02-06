@@ -8,8 +8,8 @@ export const ProjectFormProvider = ({ children }) => {
     logo: "",
     name: "",
     description: "",
-    language: "",
-    library: "",
+    language: {},
+    library: {},
     other_lang: [],
     features: [],
   });

@@ -6,7 +6,7 @@ export const Project = ({ project }) => {
       <div className="flex items-center justify-start group-hover:scale-110 p-4 gap-4 backdrop-blur-2xl bg-white/10  rounded-xl z-10 duration-500 group overflow-hidden shadow-xl group-hover:shadow-3xl  group-hover:bg-white/20 relative cursor-pointer transition-all">
         <div className=" flex items-center justify-center">
           <div className="aspect-square w-full h-12 flex items-center justify-center object-cover">
-            <img src={project.img} alt="" className="h-full" />
+            <img src={project.logo} alt="" className="h-full" />
           </div>
         </div>
         <div className=" h-full flex items-center justify-center z-10">
