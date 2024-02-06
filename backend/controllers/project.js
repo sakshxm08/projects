@@ -1,6 +1,7 @@
+const mongoose = require("mongoose");
 const Project = require("../models/projectModel");
 
-// GET items from store
+// GET all Projects
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find({}).sort({ createdAt: -1 });
@@ -10,6 +11,7 @@ const getAllProjects = async (req, res) => {
   }
 };
 
+// Add a Project
 const addProject = async (req, res) => {
   const request = req.body;
   try {
@@ -20,6 +22,20 @@ const addProject = async (req, res) => {
   }
 };
 
+// GET a unique Project
+const getProject = async (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Invalid item id" });
+  }
+
+  const item = await Project.findById(id);
+
+  if (!item) return res.status(404).json({ error: "No such item" });
+
+  res.status(200).json(item);
+};
 // const login = async (req, res) => {
 //   const { username, password } = req.body;
 //   try {
@@ -35,4 +51,4 @@ const addProject = async (req, res) => {
 //   }
 // };
 
-module.exports = { addProject, getAllProjects };
+module.exports = { addProject, getAllProjects, getProject };

@@ -6,6 +6,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AddProject } from "./pages/AddProject";
 import { ProjectFormProvider } from "./context/ProjectFormContext";
+import { Projects } from "./components/Projects";
+import { ProjectPage } from "./pages/ProjectPage";
 
 const Layout = () => {
   return <Outlet />;
@@ -16,7 +18,14 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        { path: "/", element: <Home /> },
+        {
+          path: "/",
+          element: <Home />,
+          children: [
+            { path: "", element: <Projects /> },
+            { path: "project/:id", element: <ProjectPage /> },
+          ],
+        },
         { path: "/auth", element: <Auth /> },
         { path: "/dashboard", element: <Dashboard /> },
         { path: "/add", element: <AddProject /> },
