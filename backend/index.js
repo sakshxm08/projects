@@ -8,10 +8,12 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 
 const userRoutes = require("./routes/user");
+const projectRoutes = require("./routes/project");
 
 app.use(express.json());
 app.use(cors());
 app.use("/api/user", userRoutes);
+app.use("/api/project", projectRoutes);
 
 mongoose
   .connect(MONGO_URI)

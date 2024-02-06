@@ -52,7 +52,7 @@ const features = [
 
 export const Page3 = () => {
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
-  // const [checkedFeatures, setCheckedFeatures] = useState({});
+
   const handleCheckboxChange = (_id) => {
     // Find the feature by _id
     const selectedFeature = features.find((feature) => feature._id === _id);

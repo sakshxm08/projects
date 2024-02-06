@@ -4,15 +4,54 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Page1 } from "../components/AddProject/Page1";
 import { Page2 } from "../components/AddProject/Page2";
 import { Page3 } from "../components/AddProject/Page3";
-import { Link, useSearchParams } from "react-router-dom";
-import { Fragment, useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Fragment, useContext, useEffect } from "react";
+import { ProjectFormContext } from "../context/ProjectFormContext";
+import toast from "react-hot-toast";
 export const AddProject = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!searchParams.get("page") || parseInt(searchParams.get("page")) > 4)
       setSearchParams({ page: 1 });
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      import.meta.env.VITE_APP_BASE_URL + "/project",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(projectDetails),
+      }
+    );
+    const json = await response.json();
+    if (!response.ok) {
+      return toast.error(json.error);
+    }
+    if (response.ok) {
+      toast.success(
+        <div>
+          <span className="font-bold">{json.name}</span> added successfully
+        </div>
+      );
+      setProjectDetails({
+        logo: "",
+        name: "",
+        description: "",
+        language: {},
+        library: {},
+        other_lang: [],
+        features: [],
+      });
+      navigate("/");
+    }
+  };
+
   return (
     <div className="py-10">
       <div className=" max-w-xl w-5/6 mx-auto backdrop-blur-3xl bg-white/10 shadow rounded-xl  py-10 px-20">
@@ -60,6 +99,14 @@ export const AddProject = () => {
               }
             >
               Next
+            </button>
+          )}
+          {parseInt(searchParams.get("page")) === 4 && (
+            <button
+              className="border border-yellow-500  rounded-xl px-6 py-3 text-xs font-semibold bg-yellow-500 hover:bg-yellow-500/80 hover:border-yellow-500/80 transition-all text-gray-800"
+              onClick={handleSubmit}
+            >
+              Submit
             </button>
           )}
         </div>
