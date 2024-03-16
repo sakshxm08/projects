@@ -16,7 +16,6 @@ export const ProjectFormProvider = ({ children }) => {
   const setValues = (e) => {
     const { name, value } = e.target;
     setProjectDetails({ ...projectDetails, [name]: value });
-    console.log(name, value, projectDetails);
   };
   return (
     <ProjectFormContext.Provider
