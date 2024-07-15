@@ -215,3 +215,27 @@ input:-webkit-autofill:focus {
 input[data-autocompleted] {
   background-color: transparent;
 }
+
+.carousel-container {
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+  perspective: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Optional: Indicates interactivity */
+}
+
+.carousel-item {
+  position: absolute;
+  width: 60%;
+  height: 20vh;
+  will-change: transform;
+  transition: transform 0.5s ease, z-index 0s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

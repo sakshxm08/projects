@@ -11,7 +11,15 @@ const userRoutes = require("./routes/user");
 const projectRoutes = require("./routes/project");
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 app.use("/api/user", userRoutes);
 app.use("/api/project", projectRoutes);
 

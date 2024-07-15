@@ -6,23 +6,23 @@ export const Page1 = () => {
   const { projectDetails, setProjectDetails, setValues } =
     useContext(ProjectFormContext);
   const [img, setImg] = useState(projectDetails.logo);
-
-  const convertToBase64 = (e) => {
-    const reader = new FileReader();
-    const img = e.target.files[0];
-    const allowedTypes = ["image/jpeg", "image/png", "image/svg"];
-    if (!allowedTypes.includes(img?.type))
-      return alert("Only JPEG, PNG, and SVG images are allowed.");
-    if (img) {
-      if (img.size / 1048576 > 2)
-        return alert("Please upload an image of size < 2MB");
-      reader.readAsDataURL(img);
-      reader.onload = () => {
-        setProjectDetails({ ...projectDetails, logo: reader.result });
-        setImg(reader.result);
-      };
-    }
-  };
+  console.log(projectDetails);
+  // const convertToBase64 = (e) => {
+  //   const reader = new FileReader();
+  //   const img = e.target.files[0];
+  //   const allowedTypes = ["image/jpeg", "image/png", "image/svg"];
+  //   if (!allowedTypes.includes(img?.type))
+  //     return alert("Only JPEG, PNG, and SVG images are allowed.");
+  //   if (img) {
+  //     if (img.size / 1048576 > 2)
+  //       return alert("Please upload an image of size < 2MB");
+  //     reader.readAsDataURL(img);
+  //     reader.onload = () => {
+  //       setProjectDetails({ ...projectDetails, logo: reader.result });
+  //       setImg(reader.result);
+  //     };
+  //   }
+  // };
 
   return (
     <div className="flex flex-col justify-center gap-4">
@@ -70,7 +70,24 @@ export const Page1 = () => {
               type="file"
               className="hidden"
               id="imgUpload"
-              onChange={convertToBase64}
+              // onChange={convertToBase64}
+              onChange={(e) => {
+                // setImg(e.target.files[0]);
+                console.log(e.target.files[0]);
+                setProjectDetails({
+                  ...projectDetails,
+                  logo: e.target.files[0],
+                });
+                if (e.target.files[0]) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const imageUrl = event.target.result;
+                    // Optionally, update state with imageUrl to display it
+                    setImg(imageUrl); // State to store the preview image URL
+                  };
+                  reader.readAsDataURL(e.target.files[0]); // Convert the file to data URL
+                }
+              }}
               accept="image/*"
             />
           </div>

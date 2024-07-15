@@ -27,6 +27,12 @@ const projectSchema = new Schema({
   features: {
     type: Array,
   },
+  github: {
+    type: String,
+  },
+  link: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.connection

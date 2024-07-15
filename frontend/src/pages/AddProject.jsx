@@ -8,6 +8,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Fragment, useContext, useEffect } from "react";
 import { ProjectFormContext } from "../context/ProjectFormContext";
 import toast from "react-hot-toast";
+import axios from "axios";
+import Page4 from "../components/AddProject/Page4";
 export const AddProject = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
@@ -21,22 +23,21 @@ export const AddProject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      import.meta.env.VITE_APP_BASE_URL + "/project",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(projectDetails),
-      }
-    );
-    const json = await response.json();
-    if (!response.ok) {
-      return toast.error(json.error);
-    }
-    if (response.ok) {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_APP_BASE_URL + "/project",
+        projectDetails,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       toast.success(
         <div>
-          <span className="font-bold">{json.name}</span> added successfully
+          <span className="font-bold">{response.data.name}</span> added
+          successfully
         </div>
       );
       setProjectDetails({
@@ -47,8 +48,13 @@ export const AddProject = () => {
         library: {},
         other_lang: [],
         features: [],
+        github: "",
+        link: "",
       });
       navigate("/");
+    } catch (error) {
+      console.log(error.response.data.error);
+      return toast.error(error.response.data.error);
     }
   };
 
@@ -59,12 +65,13 @@ export const AddProject = () => {
           {Array.from({ length: 4 }).map((x, index) => (
             <Fragment key={index}>
               <span
-                className={`py-1 px-3 aspect-square rounded-full border transition-all select-none ${
+                className={`py-1 px-3 aspect-square rounded-full border transition-all select-none cursor-pointer ${
                   parseInt(searchParams.get("page")) === index + 1
                     ? "bg-gray-200 text-black"
-                    : " text-white"
+                    : " text-white hover:bg-white/20"
                 }`}
                 key={index}
+                onClick={() => setSearchParams({ page: index + 1 })}
               >
                 {index + 1}
               </span>
@@ -78,6 +85,8 @@ export const AddProject = () => {
           <Page2 />
         ) : parseInt(searchParams.get("page")) === 3 ? (
           <Page3 />
+        ) : parseInt(searchParams.get("page")) === 4 ? (
+          <Page4 />
         ) : null}
         <div className="flex justify-end items-center gap-4 mt-10 h-16">
           {parseInt(searchParams.get("page")) > 1 && (

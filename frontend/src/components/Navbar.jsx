@@ -8,13 +8,13 @@ export const Navbar = () => {
         <img
           src={logo}
           alt="logo"
-          className="h-16 group-hover:scale-110 transition-all group-active:scale-100"
+          className="h-16 group-hover:scale-110 transition-all group-active:scale-100 invert"
         />
         <div className="flex flex-col cursor-pointer">
-          <div className="text-2xl font-extrabold group-hover:text-emerald-300 transition-all group-active:text-emerald-500">
+          <div className="text-2xl font-extrabold group-hover:text-yellow-400 transition-all group-active:text-yellow-500">
             sakshxm08
           </div>
-          <div className="text-sm tracking-wider text-center w-full text-red-300 group-active:tracking-wider group-active:text-emerald-500 group-hover:tracking-widest transition-all">
+          <div className="text-sm tracking-wide text-center w-full group-hover:text-yellow-400 group-active:tracking-wide group-active:text-yellow-500 group-hover:tracking-wider transition-all">
             Saksham Gambhir
           </div>
         </div>

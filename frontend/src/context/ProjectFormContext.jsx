@@ -12,6 +12,8 @@ export const ProjectFormProvider = ({ children }) => {
     library: {},
     other_lang: [],
     features: [],
+    github: "",
+    link: "",
   });
   const setValues = (e) => {
     const { name, value } = e.target;

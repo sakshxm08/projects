@@ -13,9 +13,11 @@ const getAllProjects = async (req, res) => {
 
 // Add a Project
 const addProject = async (req, res) => {
-  const request = req.body;
+  const projectDetails = req.body;
+  const logo = req.file?.location;
+  if (!logo) return res.status(404).json({ error: "Logo field is empty" });
   try {
-    const project = await Project.create(request);
+    const project = await Project.create({ ...projectDetails, logo });
     res.status(200).json(project);
   } catch (err) {
     res.status(400).json({ error: err.message });
