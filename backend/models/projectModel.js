@@ -16,10 +16,10 @@ const projectSchema = new Schema({
     required: true,
   },
   language: {
-    type: Object,
+    type: Array,
   },
   library: {
-    type: Object,
+    type: Array,
   },
   other_lang: {
     type: Array,
@@ -31,6 +31,9 @@ const projectSchema = new Schema({
     type: String,
   },
   link: {
+    type: String,
+  },
+  poster: {
     type: String,
   },
 });

@@ -3,7 +3,8 @@ import { IoAdd } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
-export const Dashboard = () => {
+
+const Dashboard = () => {
   return (
     <div className="mt-28 max-w-md w-5/6 mx-auto backdrop-blur-3xl bg-white/10 shadow rounded-xl  pt-12 pb-20">
       <Link
@@ -36,3 +37,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+export default Dashboard;

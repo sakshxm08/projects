@@ -1,10 +1,72 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProjectFormContext } from "../../context/ProjectFormContext";
+import { IoCloudUploadOutline, IoImageOutline } from "react-icons/io5";
 
 const Page4 = () => {
-  const { projectDetails, setValues } = useContext(ProjectFormContext);
+  const { projectDetails, setProjectDetails, setValues } =
+    useContext(ProjectFormContext);
+  const [poster, setPoster] = useState(null);
   return (
     <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 mt-2">
+        <span className="w-fit text-sm font-medium leading-6">
+          Upload your project&apos;s cover image
+        </span>
+        <div className="flex flex-col gap-4 items-center">
+          <div className="w-full aspect-video  rounded-xl flex items-center justify-center bg-black/20 object-cover overflow-hidden">
+            {poster ? (
+              <img src={poster} alt="poster" className="h-full object-cover" />
+            ) : (
+              <IoImageOutline size={28} className="text-slate-300" />
+            )}
+          </div>
+
+          <div className="w-full">
+            {!poster ? (
+              <label
+                htmlFor="posterUpload"
+                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-full text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
+              >
+                <IoCloudUploadOutline size={16} />
+                Upload image
+              </label>
+            ) : (
+              <label
+                htmlFor="posterUpload"
+                //   onClick={() => setImg("")}
+                className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-full text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
+              >
+                <IoCloudUploadOutline size={16} />
+                Upload another image
+              </label>
+            )}
+            <input
+              type="file"
+              className="hidden"
+              id="posterUpload"
+              // onChange={convertToBase64}
+              onChange={(e) => {
+                // setImg(e.target.files[0]);
+                console.log(e.target.files[0]);
+                setProjectDetails({
+                  ...projectDetails,
+                  poster: e.target.files[0],
+                });
+                if (e.target.files[0]) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const imageUrl = event.target.result;
+                    // Optionally, update state with imageUrl to display it
+                    setPoster(imageUrl); // State to store the preview image URL
+                  };
+                  reader.readAsDataURL(e.target.files[0]); // Convert the file to data URL
+                }
+              }}
+              accept="image/*"
+            />
+          </div>
+        </div>
+      </div>
       <div>
         <label htmlFor="github" className="w-fit text-sm font-medium leading-6">
           Github Link

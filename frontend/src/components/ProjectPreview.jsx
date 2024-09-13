@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export const ProjectPreview = ({ project }) => {
+const ProjectPreview = ({ project }) => {
   return (
     <div className="flex flex-col gap-4 justify-center h-full">
       <div className="flex items-center gap-4">
@@ -26,3 +26,5 @@ export const ProjectPreview = ({ project }) => {
 ProjectPreview.propTypes = {
   project: PropTypes.object,
 };
+
+export default ProjectPreview;

@@ -1,17 +1,23 @@
-import "./App.css";
-import { Auth } from "./pages/Auth";
-import { Dashboard } from "./pages/Dashboard";
-import { Home } from "./pages/Home";
+import { Suspense, lazy } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { AddProject } from "./pages/AddProject";
 import { ProjectFormProvider } from "./context/ProjectFormContext";
-import { Projects } from "./components/Projects";
-import { ProjectPage } from "./pages/ProjectPage";
+
+const Home = lazy(() => import("./pages/Home"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const AddProject = lazy(() => import("./pages/AddProject"));
+const Projects = lazy(() => import("./components/Projects"));
+const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
 const Layout = () => {
-  return <Outlet />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Outlet />
+    </Suspense>
+  );
 };
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -32,13 +38,12 @@ function App() {
       ],
     },
   ]);
+
   return (
-    <>
-      <ProjectFormProvider>
-        <RouterProvider router={router} />
-        <Toaster />
-      </ProjectFormProvider>
-    </>
+    <ProjectFormProvider>
+      <RouterProvider router={router} />
+      <Toaster />
+    </ProjectFormProvider>
   );
 }
 

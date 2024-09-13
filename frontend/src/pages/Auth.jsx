@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { IoEyeOffOutline, IoEye } from "react-icons/io5";
 import toast from "react-hot-toast";
 
-export const Auth = () => {
+const Auth = () => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -143,3 +143,5 @@ export const Auth = () => {
     </>
   );
 };
+
+export default Auth;

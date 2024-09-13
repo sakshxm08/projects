@@ -47,7 +47,10 @@ const uploadImage = multer({
   fileFilter: (req, file, cb) => {
     sanitizeFile(file, cb);
   },
-  limits: { fileSize: 1024 * 1024 * 5 },
-});
+  limits: { fileSize: 1024 * 1024 * 5 }, // Adjust limits as needed
+}).fields([
+  { name: "logo", maxCount: 1 },
+  { name: "poster", maxCount: 1 },
+]);
 
 module.exports = uploadImage;

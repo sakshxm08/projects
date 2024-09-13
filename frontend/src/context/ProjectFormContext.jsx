@@ -8,12 +8,13 @@ export const ProjectFormProvider = ({ children }) => {
     logo: "",
     name: "",
     description: "",
-    language: {},
-    library: {},
+    language: [],
+    library: [],
     other_lang: [],
     features: [],
     github: "",
     link: "",
+    poster: "",
   });
   const setValues = (e) => {
     const { name, value } = e.target;

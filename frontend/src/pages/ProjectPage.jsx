@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-export const ProjectPage = () => {
+const ProjectPage = () => {
   const { id } = useParams();
 
   const [project, setProject] = useState({});
@@ -26,3 +26,5 @@ export const ProjectPage = () => {
   }, [id]);
   return <div>{project.name}</div>;
 };
+
+export default ProjectPage;

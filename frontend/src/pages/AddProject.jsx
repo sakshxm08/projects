@@ -1,5 +1,3 @@
-// import { useState } from "react";
-
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Page1 } from "../components/AddProject/Page1";
 import { Page2 } from "../components/AddProject/Page2";
@@ -10,7 +8,8 @@ import { ProjectFormContext } from "../context/ProjectFormContext";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Page4 from "../components/AddProject/Page4";
-export const AddProject = () => {
+
+const AddProject = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
 
@@ -23,6 +22,18 @@ export const AddProject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!projectDetails.name.trim()) {
+      return toast.error("Project name is required");
+    }
+    if (!projectDetails.description.trim()) {
+      return toast.error("Project description is required");
+    }
+    if (!projectDetails.logo || !projectDetails.poster) {
+      return toast.error("Logo and poster are required");
+    }
+
     try {
       const response = await axios.post(
         import.meta.env.VITE_APP_BASE_URL + "/project",
@@ -50,11 +61,12 @@ export const AddProject = () => {
         features: [],
         github: "",
         link: "",
+        poster: "",
       });
       navigate("/");
     } catch (error) {
-      console.log(error.response.data.error);
-      return toast.error(error.response.data.error);
+      console.error("Error adding project:", error);
+      toast.error(error.response?.data?.error || "An error occurred");
     }
   };
 
@@ -123,3 +135,5 @@ export const AddProject = () => {
     </div>
   );
 };
+
+export default AddProject;

@@ -7,20 +7,30 @@ const getAllProjects = async (req, res) => {
     const projects = await Project.find({}).sort({ createdAt: -1 });
     res.status(200).json(projects);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error("Error fetching projects:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
 // Add a Project
 const addProject = async (req, res) => {
   const projectDetails = req.body;
-  const logo = req.file?.location;
-  if (!logo) return res.status(404).json({ error: "Logo field is empty" });
+  const logo = req.files?.["logo"][0]?.location;
+  const poster = req.files?.["poster"][0]?.location;
+
+  if (!logo || !poster) {
+    return res.status(400).json({ error: "Logo and poster are required" });
+  }
+
   try {
-    const project = await Project.create({ ...projectDetails, logo });
-    res.status(200).json(project);
+    const project = await Project.create({ ...projectDetails, logo, poster });
+    res.status(201).json(project);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error("Error adding project:", err);
+    if (err.name === "ValidationError") {
+      return res.status(400).json({ error: err.message });
+    }
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

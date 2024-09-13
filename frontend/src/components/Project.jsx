@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export const Project = ({ project, onClick }) => {
+const Project = ({ project, onClick }) => {
   return (
     <Link
       to={`project/${project._id}`}
@@ -27,3 +27,5 @@ Project.propTypes = {
   project: PropTypes.object.isRequired,
   onClick: PropTypes.func,
 };
+
+export default Project;

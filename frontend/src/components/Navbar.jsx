@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { logo, saksham } from "../assets";
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div className="flex items-center justify-between  w-screen py-6 px-10 relative">
       <div className="flex items-center gap-4 group select-none">
@@ -34,3 +34,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Navbar;

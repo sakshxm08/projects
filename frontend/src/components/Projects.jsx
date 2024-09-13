@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Project } from "./Project";
+import Project from "./Project";
 
 import toast from "react-hot-toast";
 
-export const Projects = () => {
+const Projects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -37,3 +37,5 @@ export const Projects = () => {
     </div>
   );
 };
+
+export default Projects;
