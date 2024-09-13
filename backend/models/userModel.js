@@ -11,7 +11,15 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
 });
+
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 module.exports = mongoose.connection.useDb("users").model("user", userSchema);

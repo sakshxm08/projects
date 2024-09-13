@@ -1,8 +1,9 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { ProjectFormProvider } from "./context/ProjectFormContext";
-
+import Loader from "./components/loaders/Loader";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicOnlyRoute from "./components/PublicOnlyRoute";
 const Home = lazy(() => import("./pages/Home"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -12,7 +13,7 @@ const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
 const Layout = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Outlet />
     </Suspense>
   );
@@ -32,18 +33,39 @@ function App() {
             { path: "project/:id", element: <ProjectPage /> },
           ],
         },
-        { path: "/auth", element: <Auth /> },
-        { path: "/dashboard", element: <Dashboard /> },
-        { path: "/add", element: <AddProject /> },
+        {
+          path: "/auth",
+          element: (
+            <PublicOnlyRoute>
+              <Auth />
+            </PublicOnlyRoute>
+          ),
+        },
+        {
+          path: "/dashboard",
+          element: (
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/add",
+          element: (
+            <PrivateRoute>
+              <AddProject />
+            </PrivateRoute>
+          ),
+        },
       ],
     },
   ]);
 
   return (
-    <ProjectFormProvider>
+    <div className="w-screen min-h-screen">
       <RouterProvider router={router} />
       <Toaster />
-    </ProjectFormProvider>
+    </div>
   );
 }
 

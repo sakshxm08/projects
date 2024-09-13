@@ -20,7 +20,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/api/user", userRoutes);
+app.use("/api/auth", userRoutes);
 app.use("/api/project", projectRoutes);
 
 mongoose

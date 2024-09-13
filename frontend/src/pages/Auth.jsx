@@ -5,9 +5,12 @@ import { useState } from "react";
 import { useRef } from "react";
 import { IoEyeOffOutline, IoEye } from "react-icons/io5";
 import toast from "react-hot-toast";
-
+import Loader from "../components/loaders/Loader";
+import { useLogin } from "../hooks/auth/useLogin";
 const Auth = () => {
   const navigate = useNavigate();
+
+  const { login, loading } = useLogin();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,35 +25,27 @@ const Auth = () => {
     else pass_input.current.type = "password";
   };
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      import.meta.env.VITE_APP_BASE_URL + "/user/login",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      }
-    );
-    const json = await response.json();
-    if (!response.ok) {
-      return toast.error(json.error);
-    }
-    if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(json));
+    try {
+      await login({ username, password });
       toast.success(
         <div>
-          Welcome <span className="font-bold">{json.username}</span>
+          Welcome <span className="font-bold">{username}</span>
         </div>
       );
       setUsername("");
       setPassword("");
       setPassHidden(true);
       navigate("/dashboard");
+    } catch (error) {
+      // Error is already handled in the useLogin hook
+      console.error(error);
     }
   };
   return (
     <>
+      {loading && <Loader />}
       <div className="mt-20 max-w-md w-5/6 mx-auto backdrop-blur-3xl bg-white/10 shadow rounded-xl  pt-12 pb-20">
         <Link
           to="/"
@@ -73,7 +68,7 @@ const Auth = () => {
         </div>
 
         <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={login}>
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="username"
