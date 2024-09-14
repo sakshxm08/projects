@@ -7,7 +7,7 @@
   ## Redirect for API requests to the backend hosted on Railway
 [[redirects]]
   from = "/api/*"
-  to = "https://projects-production-a637.up.railway.app/api"
+  to = "https://projects-production-a637.up.railway.app/api/:splat"
   status = 200
   force = true
 
