@@ -38,6 +38,4 @@ const projectSchema = new Schema({
   },
 });
 
-module.exports = mongoose.connection
-  .useDb("projects")
-  .model("project", projectSchema);
+module.exports = mongoose.connection.model("project", projectSchema);

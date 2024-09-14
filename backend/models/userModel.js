@@ -22,4 +22,4 @@ userSchema.methods.toJSON = function () {
   return userObject;
 };
 
-module.exports = mongoose.connection.useDb("users").model("user", userSchema);
+module.exports = mongoose.connection.model("user", userSchema);

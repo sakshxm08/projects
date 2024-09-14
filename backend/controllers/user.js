@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 const signup = async (req, res) => {
   const { username, password } = req.body;
@@ -14,7 +15,7 @@ const signup = async (req, res) => {
 
     const user = await User.create({ username, password: hash });
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
       expiresIn: "30d",
     });
 
@@ -32,7 +33,7 @@ const login = async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) throw Error("Incorrect password");
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
       expiresIn: "30d",
     });
 

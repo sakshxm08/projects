@@ -1,11 +1,12 @@
-require("dotenv").config();
+const config = require("./config");
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
+const PORT = config.PORT;
+const MONGO_URI = config.MONGO_URI;
 
 const userRoutes = require("./routes/user");
 const projectRoutes = require("./routes/project");

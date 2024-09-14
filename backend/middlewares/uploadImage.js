@@ -2,13 +2,14 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const { S3Client } = require("@aws-sdk/client-s3");
 const path = require("path");
+const config = require("../config");
 
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: process.env.ACCESS_KEY_ID,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    accessKeyId: config.AWS.ACCESS_KEY_ID,
+    secretAccessKey: config.AWS.SECRET_ACCESS_KEY,
   },
-  region: process.env.AWS_REGION,
+  region: config.AWS.AWS_REGION,
 });
 
 const s3Storage = multerS3({
