@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import Loader from "./components/loaders/Loader";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicOnlyRoute from "./components/PublicOnlyRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
 const Home = lazy(() => import("./pages/Home"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -43,17 +44,21 @@ function App() {
         },
         {
           path: "/dashboard",
+          children: [
+            { path: "", element: <Dashboard /> },
+            { path: "add", element: <AddProject /> },
+            {
+              path: "edit",
+              element: <div />,
+              children: [
+                { path: "", element: <div /> },
+                { path: ":id", element: <div /> },
+              ],
+            },
+          ],
           element: (
             <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          ),
-        },
-        {
-          path: "/add",
-          element: (
-            <PrivateRoute>
-              <AddProject />
+              <DashboardLayout />
             </PrivateRoute>
           ),
         },
