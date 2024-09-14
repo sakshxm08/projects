@@ -9,13 +9,13 @@ function classNames(...classes) {
 }
 
 export const Dropdown = ({ initial, options, label, name }) => {
-  const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
+  const { setProjectDetails } = useContext(ProjectFormContext);
   const [selected, setSelected] = useState(initial);
   useEffect(() => {
-    setProjectDetails({
-      ...projectDetails,
+    setProjectDetails((prev) => ({
+      ...prev,
       [name]: options.find((option) => option.name === selected.name),
-    });
+    }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, selected]);
   return (
@@ -26,15 +26,19 @@ export const Dropdown = ({ initial, options, label, name }) => {
             {label}
           </Listbox.Label>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-pointer rounded-md bg-black/20 hover:bg-black/30 transition-all py-1.5 pl-3 pr-10 text-left text-gray-200 shadow-sm ring-0 focus:outline-none sm:text-sm sm:leading-6">
-              <span className={`flex items-center`}>
-                <img
-                  src={selected.avatar}
-                  alt=""
-                  className="h-5 w-auto  flex-shrink-0 aspect-square"
-                />
-                <span className="ml-3 block truncate">{selected.name}</span>
-              </span>
+            <Listbox.Button className="relative w-full cursor-pointer rounded-md bg-black/20 hover:bg-black/30 transition-all  text-left text-gray-200 shadow-sm ring-0 focus:outline-none sm:text-sm sm:leading-6">
+              <div className={`flex items-center`}>
+                <div className="w- h-full bg-white/20 p-1.5 rounded-l-md">
+                  <img
+                    src={selected.avatar}
+                    alt=""
+                    className="h-5 w-auto  flex-shrink-0 aspect-square rounded-sm"
+                  />
+                </div>
+                <span className="ml-3 block truncate py-1.5 pr-10">
+                  {selected.name}
+                </span>
+              </div>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"
@@ -103,8 +107,14 @@ export const Dropdown = ({ initial, options, label, name }) => {
   );
 };
 Dropdown.propTypes = {
-  options: PropTypes.array,
-  label: PropTypes.string,
-  initial: PropTypes.object,
-  name: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      name: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  label: PropTypes.string.isRequired,
+  initial: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
 };

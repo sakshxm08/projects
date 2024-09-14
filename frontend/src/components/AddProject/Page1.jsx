@@ -1,28 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { ProjectFormContext } from "../../context/ProjectFormContext";
 export const Page1 = () => {
-  const { projectDetails, setProjectDetails, setValues } =
+  const { projectDetails, logoPreview, setValues } =
     useContext(ProjectFormContext);
-  const [img, setImg] = useState(projectDetails.logo);
-  console.log(projectDetails);
-  // const convertToBase64 = (e) => {
-  //   const reader = new FileReader();
-  //   const img = e.target.files[0];
-  //   const allowedTypes = ["image/jpeg", "image/png", "image/svg"];
-  //   if (!allowedTypes.includes(img?.type))
-  //     return alert("Only JPEG, PNG, and SVG images are allowed.");
-  //   if (img) {
-  //     if (img.size / 1048576 > 2)
-  //       return alert("Please upload an image of size < 2MB");
-  //     reader.readAsDataURL(img);
-  //     reader.onload = () => {
-  //       setProjectDetails({ ...projectDetails, logo: reader.result });
-  //       setImg(reader.result);
-  //     };
-  //   }
-  // };
 
   return (
     <div className="flex flex-col justify-center gap-4">
@@ -40,15 +22,15 @@ export const Page1 = () => {
         </span>
         <div className="flex gap-4 items-center">
           <div className="w-28 aspect-square  rounded-xl flex items-center justify-center bg-black/20 object-cover overflow-hidden">
-            {img ? (
-              <img src={img} alt="" className="w-28 object-cover" />
+            {logoPreview ? (
+              <img src={logoPreview} alt="" className="w-28 object-cover" />
             ) : (
               <IoImageOutline size={28} className="text-slate-300" />
             )}
           </div>
 
           <div className="w-full">
-            {!img ? (
+            {!logoPreview ? (
               <label
                 htmlFor="imgUpload"
                 className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
@@ -59,7 +41,6 @@ export const Page1 = () => {
             ) : (
               <label
                 htmlFor="imgUpload"
-                //   onClick={() => setImg("")}
                 className="rounded-xl flex gap-2 items-center justify-center font-medium text-xs py-2 px-8 w-fit text-slate-50 hover:bg-gray-200 hover:text-slate-800  cursor-pointer border transition-all"
               >
                 <IoCloudUploadOutline size={16} />
@@ -70,24 +51,8 @@ export const Page1 = () => {
               type="file"
               className="hidden"
               id="imgUpload"
-              // onChange={convertToBase64}
-              onChange={(e) => {
-                // setImg(e.target.files[0]);
-                console.log(e.target.files[0]);
-                setProjectDetails({
-                  ...projectDetails,
-                  logo: e.target.files[0],
-                });
-                if (e.target.files[0]) {
-                  const reader = new FileReader();
-                  reader.onload = (event) => {
-                    const imageUrl = event.target.result;
-                    // Optionally, update state with imageUrl to display it
-                    setImg(imageUrl); // State to store the preview image URL
-                  };
-                  reader.readAsDataURL(e.target.files[0]); // Convert the file to data URL
-                }
-              }}
+              name="logo"
+              onChange={setValues}
               accept="image/*"
             />
           </div>
