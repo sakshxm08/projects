@@ -4,6 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { TbLogout2 } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 import { useLogout } from "../hooks/auth/useLogout";
+import { MdOutlineCalendarViewMonth } from "react-icons/md";
 
 const Sidebar = () => {
   const { logout } = useLogout();
@@ -11,6 +12,7 @@ const Sidebar = () => {
     { url: "/dashboard", Icon: GoHome, exact: true },
     { url: "/dashboard/add", Icon: AiOutlinePlus },
     { url: "/dashboard/edit", Icon: FiEdit3 },
+    { url: "/", Icon: MdOutlineCalendarViewMonth },
   ];
 
   return (

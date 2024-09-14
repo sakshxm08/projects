@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useCallback } from "react";
-import api from "../api";
+import api, { setAuthToken } from "../api";
 import PropTypes from "prop-types";
 import Loader from "../components/loaders/Loader";
 
@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       try {
+        setAuthToken(storedToken); // Add this line
         const response = await api.getCurrentUser("/auth/me");
         console.log(response.data);
         setUser(response.data.user);
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Authentication failed:", error);
         localStorage.removeItem("token");
+        setAuthToken(null); // Add this line
         setUser(null);
         setToken(null);
       }

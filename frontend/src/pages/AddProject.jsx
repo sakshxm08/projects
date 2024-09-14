@@ -41,6 +41,7 @@ const AddProject = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -52,16 +53,16 @@ const AddProject = () => {
         </div>
       );
       setProjectDetails({
-        logo: "",
+        logo: null,
         name: "",
         description: "",
-        language: {},
-        library: {},
+        language: [],
+        library: [],
         other_lang: [],
         features: [],
         github: "",
         link: "",
-        poster: "",
+        poster: null,
       });
       navigate("/");
     } catch (error) {

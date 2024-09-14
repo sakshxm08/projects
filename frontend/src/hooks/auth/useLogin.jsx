@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "./useAuth";
 import api from "../../api";
 import toast from "react-hot-toast";
+import { setAuthToken } from "../../api";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export const useLogin = () => {
       setUser(response.data.user);
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
+      setAuthToken(response.data.token); // Add this line
       return response.data;
     } catch (err) {
       console.log(err);

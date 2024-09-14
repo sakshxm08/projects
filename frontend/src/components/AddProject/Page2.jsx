@@ -111,7 +111,7 @@ export const Page2 = () => {
   ];
 
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
-
+  console.log(projectDetails);
   const [keywords, setKeywords] = useState(projectDetails.other_lang);
   const [keyword, setKeyword] = useState("");
   return (
@@ -127,9 +127,7 @@ export const Page2 = () => {
       <div className="mt-2">
         <Dropdown
           options={languages}
-          initial={
-            projectDetails.language.id ? projectDetails.language : languages[0]
-          }
+          initial={projectDetails.language || []}
           label={"Programming language used"}
           name={"language"}
         />
@@ -137,9 +135,7 @@ export const Page2 = () => {
       <div>
         <Dropdown
           options={libraries}
-          initial={
-            projectDetails.library.id ? projectDetails.library : libraries[0]
-          }
+          initial={projectDetails.library || []}
           label={"Frameworks or Libraries used"}
           name={"library"}
         />
