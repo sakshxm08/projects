@@ -7,7 +7,7 @@
   to = "https://projects-production-a637.up.railway.app/api/:splat"
   status = 200
   force = true
-  headers = {X-From = "Netlify"}
+  conditions = {Path = "/api/*"}
 
 [[redirects]]
   from = "/*"
