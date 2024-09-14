@@ -10,6 +10,7 @@
   to = "https://projects-production-a637.up.railway.app/api/:splat"
   status = 200
   force = true
+  headers = {X-From = "Netlify"}
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
