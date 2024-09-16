@@ -70,7 +70,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     // Update height for all items
-    if (project) {
+    if (project.features) {
       project.features.forEach((feature) => {
         const element = contentRefs.current[feature._id];
         if (element) {
