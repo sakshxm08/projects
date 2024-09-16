@@ -1,9 +1,11 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useContext } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Loader from "./components/loaders/Loader";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicOnlyRoute from "./components/PublicOnlyRoute";
+import { AuthContext } from "./context/AuthContext";
+
 const Home = lazy(() => import("./pages/Home"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -12,6 +14,12 @@ const Projects = lazy(() => import("./components/Projects"));
 const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
 const Layout = () => {
+  const { globalLoading } = useContext(AuthContext);
+
+  if (globalLoading) {
+    return <Loader />;
+  }
+
   return (
     <Suspense fallback={<Loader />}>
       <Outlet />
