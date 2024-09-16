@@ -1,36 +1,46 @@
 import PropTypes from "prop-types";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
+import { Outlet, useNavigate, useRouteError } from "react-router-dom";
 
-function ErrorFallback({ error, resetErrorBoundary }) {
+function ErrorFallback({ error }) {
+  const navigate = useNavigate();
+  const routeError = useRouteError();
+
+  console.error("Error caught by ErrorBoundary:", error || routeError);
+
+  const errorMessage =
+    error?.message || routeError?.statusText || "An unexpected error occurred";
+
   return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
+    <div
+      role="alert"
+      className="error-fallback"
+      style={{
+        padding: "20px",
+        backgroundColor: "#ffeeee",
+        border: "1px solid #ff0000",
+      }}
+    >
+      <h2>Oops! Something went wrong</h2>
+      <pre>{errorMessage}</pre>
+      <button onClick={() => navigate("/")}>Go to Home</button>
     </div>
   );
 }
 
 ErrorFallback.propTypes = {
-  error: PropTypes.object.isRequired,
-  resetErrorBoundary: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
-function ErrorBoundary({ children }) {
+function ErrorBoundary() {
   return (
     <ReactErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={() => {
-        // Reset the state of your app here
-      }}
+      onReset={() => (window.location.href = "/")}
     >
-      {children}
+      <Outlet />
     </ReactErrorBoundary>
   );
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default ErrorBoundary;

@@ -70,7 +70,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     // Update height for all items
-    if (project.features) {
+    if (project) {
       project.features.forEach((feature) => {
         const element = contentRefs.current[feature._id];
         if (element) {
@@ -85,6 +85,16 @@ const ProjectPage = () => {
 
   return loading ? (
     <Loader />
+  ) : !project ? (
+    <div className="flex flex-col gap-4 items-center justify-center min-h-screen text-2xl">
+      An Error Occured
+      <Link
+        to="/"
+        className="border px-4 py-2 rounded-full hover:bg-white/20 transition-all"
+      >
+        Go Home
+      </Link>
+    </div>
   ) : (
     <div className="flex items-center justify-center max-w-screen-md w-11/12 mx-auto py-10">
       <div className="flex flex-col gap-10">

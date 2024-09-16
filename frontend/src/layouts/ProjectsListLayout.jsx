@@ -26,39 +26,48 @@ const ProjectsListLayout = ({ projects }) => {
 const ProjectList = ({ project }) => {
   return (
     <tr className="text-sm cursor-pointer text-gray-200 border-b border-gray-800 hover:bg-gray-800/40 transition-all">
-      <td className="py-4 px-2">
-        <Link to={`/project/${project._id}`} className="block w-full h-full">
+      <td>
+        <Link
+          to={`/project/${project._id}`}
+          className="block w-full h-full py-4 px-2"
+        >
           {project.name}
         </Link>
       </td>
-      <td className="py-4 px-2 max-w-sm truncate">
-        <Link to={`/project/${project._id}`} className="block w-full h-full">
+      <td className="max-w-sm truncate">
+        <Link
+          to={`/project/${project._id}`}
+          className="block w-full h-full py-4 px-2"
+        >
           {project.description}
         </Link>
       </td>
-      <td className="py-4 px-2">
-        <Link to={`/project/${project._id}`} className="block w-full h-full">
+      <td>
+        <Link
+          to={`/project/${project._id}`}
+          className="block w-full h-full py-4 px-2"
+        >
           {project.language[0].name}
         </Link>
       </td>
-      <td className="py-4 px-2">
+      <td>
         <Link
           to={project.github}
           target="_blank"
           onClick={(e) => e.stopPropagation()}
           rel="noopener noreferrer"
-          className="hover:text-gray-500"
+          className="hover:text-gray-500 py-4 px-2"
         >
           <FaGithub size={24} />
         </Link>
       </td>
-      <td className="py-4 px-2">
+      <td>
         <Link
           to={project.link}
           target="_blank"
           onClick={(e) => e.stopPropagation()}
           rel="noopener noreferrer"
-          className="hover:text-gray-500"
+          className="hover:text-gray-500 py-4 px-2"
         >
           <GoLinkExternal size={24} />
         </Link>
