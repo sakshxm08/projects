@@ -1,8 +1,13 @@
+import PropTypes from "prop-types";
 import "./loader.css";
 
-const Loader = () => {
+const Loader = ({ minHScreen = true }) => {
   return (
-    <div className="flex items-center justify-center min-w-screen min-h-screen">
+    <div
+      className={`flex items-center justify-center ${
+        minHScreen && "min-h-screen"
+      }`}
+    >
       <svg className="container" viewBox="0 0 40 40" height="40" width="40">
         <circle
           className="track"
@@ -25,6 +30,10 @@ const Loader = () => {
       </svg>
     </div>
   );
+};
+
+Loader.propTypes = {
+  minHScreen: PropTypes.bool,
 };
 
 export default Loader;

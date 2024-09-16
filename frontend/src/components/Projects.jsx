@@ -1,16 +1,15 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ProjectsListLayout from "../layouts/ProjectsListLayout";
-import { AuthContext } from "../context/AuthContext";
+import Loader from "./loaders/Loader";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
-  const { setGlobalLoading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getAllProjects = async () => {
-      setGlobalLoading(true);
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_APP_BASE_URL}/project`
@@ -19,15 +18,16 @@ const Projects = () => {
       } catch (error) {
         toast.error(error.response?.data?.error || "An error occurred");
       } finally {
-        setGlobalLoading(false);
+        setLoading(false);
       }
     };
     getAllProjects();
-  }, [setGlobalLoading]);
+  }, []);
 
   return (
-    <div className="py-10 flex gap-40 items-center justify-center">
+    <div className="py-10 flex flex-col gap-4 items-center justify-center">
       <ProjectsListLayout projects={projects} />
+      {loading && <Loader minHScreen={false} />}
     </div>
   );
 };
