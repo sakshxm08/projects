@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
       try {
         setAuthToken(storedToken); // Add this line
         const response = await api.getCurrentUser("/auth/me");
-        console.log(response.data);
         setUser(response.data.user);
         setToken(storedToken);
       } catch (error) {

@@ -12,7 +12,7 @@ dotenv.config({
   ),
   override: true,
 });
-console.log(process.env);
+
 module.exports = {
   PORT: process.env.PORT,
   MONGO_URI: process.env.MONGO_URI,

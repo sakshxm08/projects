@@ -10,7 +10,7 @@ const LaptopMockup = ({ url }) => {
             <div className="bezel">
               <div className="display-camera"></div>
               <div className="display-frame">
-                <iframe src={url} allowfullscreen></iframe>
+                <iframe src={url} allowFullScreen></iframe>
               </div>
               <div className="below-display">
                 <div className="macbookpro"></div>

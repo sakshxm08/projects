@@ -24,27 +24,30 @@ const ProjectsListLayout = ({ projects }) => {
 };
 
 const ProjectList = ({ project }) => {
-  //   console.log(project);
-  //   const truncateDescription = (desc) => {
-  //     const words = desc.split(" ");
-  //     return words.length > 10 ? words.slice(0, 10).join(" ") + "..." : desc;
-  //   };
-
   return (
-    <Link
-      to={`/project/${project._id}`}
-      className="text-sm cursor-pointer text-gray-200 border-b border-gray-800 hover:bg-gray-800/40 transition-all px-4 table-row align-middle isolate"
-    >
-      <td className="py-4 px-2">{project.name}</td>
-      <td className="py-4 px-2 max-w-sm truncate">{project.description}</td>
-      <td className="py-4 px-2">{project.language[0].name}</td>
+    <tr className="text-sm cursor-pointer text-gray-200 border-b border-gray-800 hover:bg-gray-800/40 transition-all">
+      <td className="py-4 px-2">
+        <Link to={`/project/${project._id}`} className="block w-full h-full">
+          {project.name}
+        </Link>
+      </td>
+      <td className="py-4 px-2 max-w-sm truncate">
+        <Link to={`/project/${project._id}`} className="block w-full h-full">
+          {project.description}
+        </Link>
+      </td>
+      <td className="py-4 px-2">
+        <Link to={`/project/${project._id}`} className="block w-full h-full">
+          {project.language[0].name}
+        </Link>
+      </td>
       <td className="py-4 px-2">
         <Link
           to={project.github}
           target="_blank"
           onClick={(e) => e.stopPropagation()}
           rel="noopener noreferrer"
-          className=" hover:text-gray-500"
+          className="hover:text-gray-500"
         >
           <FaGithub size={24} />
         </Link>
@@ -55,12 +58,12 @@ const ProjectList = ({ project }) => {
           target="_blank"
           onClick={(e) => e.stopPropagation()}
           rel="noopener noreferrer"
-          className=" hover:text-gray-500"
+          className="hover:text-gray-500"
         >
           <GoLinkExternal size={24} />
         </Link>
       </td>
-    </Link>
+    </tr>
   );
 };
 

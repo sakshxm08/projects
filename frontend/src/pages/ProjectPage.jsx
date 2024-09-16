@@ -66,9 +66,7 @@ const ProjectPage = () => {
         })),
       ]);
     }
-    console.log(project);
   }, [project]);
-  console.log(project);
 
   useEffect(() => {
     // Update height for all items
@@ -149,7 +147,7 @@ const ProjectPage = () => {
         <div className="w-full">
           <h1 className="text-2xl font-semibold mb-4">Project Features</h1>
           <div className="flex flex-col">
-            {project.features.map((feature) => (
+            {project.features?.map((feature) => (
               <div
                 key={feature._id}
                 className="border-b border-gray-400/30 py-2 overflow-hidden"

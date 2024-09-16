@@ -111,7 +111,6 @@ export const Page2 = () => {
   ];
 
   const { projectDetails, setProjectDetails } = useContext(ProjectFormContext);
-  console.log(projectDetails);
   const [keywords, setKeywords] = useState(projectDetails.other_lang);
   const [keyword, setKeyword] = useState("");
   return (
