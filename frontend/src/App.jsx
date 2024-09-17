@@ -5,6 +5,7 @@ import Loader from "./components/loaders/Loader";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicOnlyRoute from "./components/PublicOnlyRoute";
 import { AuthContext } from "./context/AuthContext";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 const Home = lazy(() => import("./pages/Home"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -65,7 +66,7 @@ function App() {
           ],
           element: (
             <PrivateRoute>
-              <Outlet />
+              <DashboardLayout />
             </PrivateRoute>
           ),
         },
